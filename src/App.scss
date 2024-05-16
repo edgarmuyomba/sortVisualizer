@@ -1,4 +1,8 @@
 #root {
-  max-width: 1280px;
+  width: min(100%, 1280px);
+  min-width: 1080px;
   height: 100vh;
+  display: flex;
+  align-items: start;
+  justify-content: center;
 }

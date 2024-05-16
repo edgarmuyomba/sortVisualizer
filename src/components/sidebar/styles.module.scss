@@ -1,6 +1,11 @@
 $accent-blue: rgb(66, 148, 255);
 $accent-green: rgb(51, 194, 70);
 
+%positioning {
+    display: flex;
+    align-items: center;
+}
+
 div.container {
     height: 100%;
     width: 30%;
@@ -23,8 +28,7 @@ div.setting {
     flex-direction: column;
 
     div.header {
-        display: flex;
-        align-items: center;
+        @extend %positioning;
         gap: 0.2rem;
 
         p.name {
@@ -38,15 +42,14 @@ div.setting {
 }
 
 div.options {
-    display: flex;
-    align-items: center;
+    @extend %positioning;
     justify-content: space-evenly;
     width: 100%;
     padding-top: 0.5rem;
 
     button.option {
         font-size: 0.7rem;
-        width: 4.5rem;
+        width: 4.0rem;
         height: 1.5rem;
     }
 

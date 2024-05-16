@@ -1,0 +1,22 @@
+%positioning {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+}
+
+div.container {
+    @extend %positioning;
+    height: 70%;
+    width: 70%;
+    border: 1px solid red;
+    gap: 0.2rem;
+    padding-bottom: 1rem;
+}
+
+div.element {
+    @extend %positioning;
+    width: 2rem;
+    background-color: lightgray;
+    color: white;
+    font-weight: bold;
+}
