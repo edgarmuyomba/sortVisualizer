@@ -77,6 +77,12 @@ export default function Sidebar() {
                 </div>
                 <input type="range" name="count" id="count" min={5} max={100} />
             </div>
+            <hr />
+            <div className={styles.setting}>
+                <button className={styles.generate}>
+                    Generate Array
+                </button>
+            </div>
         </div>
     )
 }
