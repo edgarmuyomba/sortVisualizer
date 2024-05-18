@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 
 import Icon from '@mdi/react';
-import { mdiPlaySpeed, mdiTallyMark3 } from '@mdi/js';
+import { mdiPlaySpeed, mdiTallyMark3, mdiGraphOutline, mdiRefresh, mdiShuffle } from '@mdi/js';
 
 import styles from "./styles.module.scss";
 
@@ -79,8 +79,27 @@ export default function Sidebar() {
             </div>
             <hr />
             <div className={styles.setting}>
-                <button className={styles.generate}>
-                    Generate Array
+                <div className={styles.header}>
+                    <Icon path={mdiGraphOutline} size={0.8} />
+                    <p className={styles.name}>Algorithm</p>
+                </div>
+                <select name="algorithms" className={styles.algorithms}>
+                    <option value="bubblesort">Bubble Sort</option>
+                    <option value="insertionsort">Insertion Sort</option>
+                    <option value="mergesort">Merge Sort</option>
+                    <option value="quicksort">Quick Sort</option>
+                    <option value="selectionsort">Selection Sort</option>
+                </select>
+            </div>
+            <div className={styles.setting}>
+                <button className={styles.refresh}>
+                    <Icon path={mdiRefresh} size={0.7} />
+                </button>
+                <button className={styles.shuffle}>
+                    <Icon path={mdiShuffle} size={0.7} />
+                </button>
+                <button className={styles.sort}>
+                    Sort
                 </button>
             </div>
         </div>

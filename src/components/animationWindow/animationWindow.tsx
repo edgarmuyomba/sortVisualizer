@@ -6,9 +6,7 @@ export default function AnimationWindow() {
 
     const [array, setArray] = useState<number[]>([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
-    function getHeight(int: number): string {
-        return `${int * 2.5}rem`
-    }
+    const getHeight = (int: number): string => `${int * 2.5}rem`;
 
     return (
         <div className={styles.container}>
