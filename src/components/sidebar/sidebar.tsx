@@ -9,7 +9,7 @@ import { Algorithm, SettingsContext, Speed } from "../../App";
 
 export default function Sidebar() {
 
-    const { generateArray, shuffleArray, sortArray, setAlgorithm, count, setCount, speed, setSpeed } = useContext(SettingsContext);
+    const { generateArray, randomiseArray, sortArray, setAlgorithm, count, updateCount, speed, setSpeed } = useContext(SettingsContext);
 
     const options: { value: Speed }[] = [{
         value: Speed.slow
@@ -73,7 +73,7 @@ export default function Sidebar() {
                         Element Count
                     </p>
                 </div>
-                <input type="range" name="count" id="count" min={5} max={100} value={count} onChange={(event) => setCount(parseInt(event.target.value))} />
+                <input type="range" name="count" id="count" min={5} max={100} value={count} onChange={(event) => updateCount(parseInt(event.target.value))} />
             </div>
             <hr />
             <div className={styles.setting}>
@@ -95,7 +95,7 @@ export default function Sidebar() {
                     <button className={styles.refresh} title="Refresh" onClick={() => generateArray()}>
                         <Icon path={mdiRefresh} size={0.7} />
                     </button>
-                    <button className={styles.shuffle} title="Shuffle" onClick={() => shuffleArray()}>
+                    <button className={styles.random} title="Randomise" onClick={() => randomiseArray()}>
                         <Icon path={mdiShuffle} size={0.7} />
                     </button>
                     <button className={styles.sort} onClick={() => sortArray()}>

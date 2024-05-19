@@ -26,10 +26,10 @@ interface Settings {
   algorithm: Algorithm;
   array: number[];
   setSpeed: (speed: Speed) => void;
-  setCount: (int: number) => void;
+  updateCount: (int: number) => void;
   setAlgorithm: (algorithm: Algorithm) => void;
   generateArray: () => void;
-  shuffleArray: () => void;
+  randomiseArray: () => void;
   sortArray: () => void;
 }
 
@@ -39,10 +39,10 @@ export const SettingsContext = createContext<Settings>({
   algorithm: Algorithm.bubblesort,
   array: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   setSpeed: () => { },
-  setCount: () => { },
+  updateCount: () => { },
   setAlgorithm: () => { },
   generateArray: () => { },
-  shuffleArray: () => { },
+  randomiseArray: () => { },
   sortArray: () => { },
 })
 
@@ -54,20 +54,28 @@ function App() {
   const [array, setArray] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
   function generateArray(): void {
-
-    setArray([]);
+    let new_array: number[] = [];
+    for (var i = 1; i < count; i++) {
+      new_array.push(i);
+    }
+    setArray(new_array);
    }
 
-  function shuffleArray() { }
+  function randomiseArray() { }
 
   function sortArray() { }
+
+  function updateCount(int: number): void { 
+    setCount(int);
+    generateArray();
+  }
   
 
   return (
     <SettingsContext.Provider value={{ 
       speed: speed, count: count, algorithm: algorithm, array: array, setSpeed: setSpeed, 
-      setAlgorithm: setAlgorithm, generateArray: generateArray, shuffleArray: shuffleArray, 
-      sortArray: sortArray, setCount: setCount }}>
+      setAlgorithm: setAlgorithm, generateArray: generateArray, randomiseArray: randomiseArray, 
+      sortArray: sortArray, updateCount: updateCount }}>
       <Sidebar />
       <AnimationWindow />
     </SettingsContext.Provider >

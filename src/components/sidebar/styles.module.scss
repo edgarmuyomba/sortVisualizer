@@ -79,7 +79,7 @@ div.buttons {
     gap: 0.5rem;
     width: 100%;
 
-    button.refresh, button.shuffle {
+    button.refresh, button.random {
         @extend %buttons;
         background-color: lightgray;
         padding: 0.2rem;
