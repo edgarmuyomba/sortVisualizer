@@ -56,12 +56,26 @@ function App() {
   function generateArray(): void {
     let new_array: number[] = [];
     for (var i = 1; i < count; i++) {
-      new_array.push(i);
+      let random_number = Math.floor(Math.random() * (count + 1)) + 1;
+      new_array.push(random_number);
     }
     setArray(new_array);
    }
 
-  function randomiseArray() { }
+  function randomiseArray() { 
+    let new_array: number[] = [];
+    let change: boolean = true;
+    let tmp = Array.from(array);
+    while (tmp.length > 0) {
+      var elem: number | undefined;
+      if (change) {
+        elem = tmp.pop();
+      } else elem = tmp.shift();
+      if (elem != null) new_array.push(elem);
+      change = !change;
+    }
+    setArray(new_array);
+  }
 
   function sortArray() { }
 
