@@ -74,9 +74,25 @@ select.algorithms {
     font-size: 0.8rem;
 }
 
-button.sort {
-    @extend %buttons;
-    align-self: center;
-    padding: 0.2rem 0.7rem;
-    background-color: $accent-green;
+div.buttons {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+
+    button.refresh, button.shuffle {
+        @extend %buttons;
+        background-color: lightgray;
+        padding: 0.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 25%;
+    }
+    
+    button.sort {
+        @extend %buttons;
+        padding: 0.2rem 0.7rem;
+        background-color: $accent-green;
+        width: 50%;
+    }
 }

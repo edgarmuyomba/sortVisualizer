@@ -91,16 +91,19 @@ export default function Sidebar() {
                     <option value="selectionsort">Selection Sort</option>
                 </select>
             </div>
+            <hr />
             <div className={styles.setting}>
-                <button className={styles.refresh}>
-                    <Icon path={mdiRefresh} size={0.7} />
-                </button>
-                <button className={styles.shuffle}>
-                    <Icon path={mdiShuffle} size={0.7} />
-                </button>
-                <button className={styles.sort}>
-                    Sort
-                </button>
+                <div className={styles.buttons}>
+                    <button className={styles.refresh} title="Refresh">
+                        <Icon path={mdiRefresh} size={0.7} />
+                    </button>
+                    <button className={styles.shuffle} title="Shuffle">
+                        <Icon path={mdiShuffle} size={0.7} />
+                    </button>
+                    <button className={styles.sort}>
+                        Sort
+                    </button>
+                </div>
             </div>
         </div>
     )
