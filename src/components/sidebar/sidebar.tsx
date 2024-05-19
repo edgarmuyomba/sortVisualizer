@@ -1,48 +1,46 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 
 import Icon from '@mdi/react';
 import { mdiPlaySpeed, mdiTallyMark3, mdiGraphOutline, mdiRefresh, mdiShuffle } from '@mdi/js';
 
 import styles from "./styles.module.scss";
+import { Algorithm, SettingsContext, Speed } from "../../App";
 
 export default function Sidebar() {
 
-    const [speed, setSpeed] = useState<number>(1);
+    const { generateArray, shuffleArray, sortArray, setAlgorithm, count, setCount, speed, setSpeed } = useContext(SettingsContext);
 
-    interface Option {
-        index: number;
-        value: string;
-        selected: boolean;
-    };
-
-    const [options, setOptions] = useState<Option[]>([{
-        index: 0,
-        value: "slow",
-        selected: false
+    const options: { value: Speed }[] = [{
+        value: Speed.slow
     },
     {
-        index: 1,
-        value: "medium",
-        selected: true
+        value: Speed.medium
     },
     {
-        index: 2,
-        value: "fast",
-        selected: false
-    },]);
+        value: Speed.fast
+    },];
 
-    function updateSeleted(option: Option): void {
-        setSpeed(option.index);
-        let newOptions: Option[] = options.map((_option) => {
-            if (_option.index === option.index) {
-                return {
-                    ..._option,
-                    selected: true,
-                }
-            } else return { ..._option, selected: false };
-        });
-        setOptions(newOptions);
+    function changeAlgorithm(event: React.ChangeEvent<HTMLSelectElement>): void {
+        let selected: string = event.target.value;
+
+        switch (selected) {
+            case 'BUBBLESORT':
+                setAlgorithm(Algorithm.bubblesort);
+                break;
+            case 'INSERTIONSORT':
+                setAlgorithm(Algorithm.insertionsort);
+                break;
+            case 'MERGESORT':
+                setAlgorithm(Algorithm.mergesort);
+                break;
+            case 'QUICKSORT':
+                setAlgorithm(Algorithm.quicksort);
+                break;
+            case 'SELECTIONSORT':
+                setAlgorithm(Algorithm.selectionsort);
+                break;
+        }
     }
 
     return (
@@ -62,7 +60,7 @@ export default function Sidebar() {
                     {
                         options.map((option, index) => {
                             return (
-                                <button onClick={() => updateSeleted(option)} key={index} className={`${styles.option} ${option.selected ? styles.selected : null}`}>{option.value}</button>
+                                <button onClick={() => setSpeed(option.value)} key={index} className={`${styles.option} ${option.value === speed ? styles.selected : null}`}>{option.value}</button>
                             )
                         })
                     }
@@ -75,7 +73,7 @@ export default function Sidebar() {
                         Element Count
                     </p>
                 </div>
-                <input type="range" name="count" id="count" min={5} max={100} />
+                <input type="range" name="count" id="count" min={5} max={100} value={count} onChange={(event) => setCount(parseInt(event.target.value))} />
             </div>
             <hr />
             <div className={styles.setting}>
@@ -83,24 +81,24 @@ export default function Sidebar() {
                     <Icon path={mdiGraphOutline} size={0.8} />
                     <p className={styles.name}>Algorithm</p>
                 </div>
-                <select name="algorithms" className={styles.algorithms}>
-                    <option value="bubblesort">Bubble Sort</option>
-                    <option value="insertionsort">Insertion Sort</option>
-                    <option value="mergesort">Merge Sort</option>
-                    <option value="quicksort">Quick Sort</option>
-                    <option value="selectionsort">Selection Sort</option>
+                <select name="algorithms" className={styles.algorithms} onChange={(event) => changeAlgorithm(event)}>
+                    <option value={Algorithm.bubblesort}>Bubble Sort</option>
+                    <option value={Algorithm.insertionsort}>Insertion Sort</option>
+                    <option value={Algorithm.mergesort}>Merge Sort</option>
+                    <option value={Algorithm.quicksort}>Quick Sort</option>
+                    <option value={Algorithm.selectionsort}>Selection Sort</option>
                 </select>
             </div>
             <hr />
             <div className={styles.setting}>
                 <div className={styles.buttons}>
-                    <button className={styles.refresh} title="Refresh">
+                    <button className={styles.refresh} title="Refresh" onClick={() => generateArray()}>
                         <Icon path={mdiRefresh} size={0.7} />
                     </button>
-                    <button className={styles.shuffle} title="Shuffle">
+                    <button className={styles.shuffle} title="Shuffle" onClick={() => shuffleArray()}>
                         <Icon path={mdiShuffle} size={0.7} />
                     </button>
-                    <button className={styles.sort}>
+                    <button className={styles.sort} onClick={() => sortArray()}>
                         Sort
                     </button>
                 </div>

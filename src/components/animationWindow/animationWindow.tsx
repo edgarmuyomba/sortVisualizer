@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import styles from "./styles.module.scss";
+import { SettingsContext } from "../../App";
 
 export default function AnimationWindow() {
 
-    const [array, setArray] = useState<number[]>([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    const { array, count } = useContext(SettingsContext);
 
     const getHeight = (int: number): string => `${int * 2.5}rem`;
 

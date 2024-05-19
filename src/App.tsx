@@ -6,13 +6,13 @@ import './App.scss'
 import Sidebar from './components/sidebar/sidebar';
 import AnimationWindow from './components/animationWindow/animationWindow';
 
-enum Speed {
+export enum Speed {
   slow = 'SLOW',
   medium = 'MEDIUM',
   fast = 'FAST'
 };
 
-enum Algorithm {
+export enum Algorithm {
   bubblesort = 'BUBBLESORT',
   insertionsort = 'INSERTIONSORT',
   mergesort = 'MERGESORT',
@@ -53,11 +53,15 @@ function App() {
   const [algorithm, setAlgorithm] = useState(Algorithm.bubblesort);
   const [array, setArray] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
-  function generateArray() { }
+  function generateArray(): void {
+
+    setArray([]);
+   }
 
   function shuffleArray() { }
 
   function sortArray() { }
+  
 
   return (
     <SettingsContext.Provider value={{ 
