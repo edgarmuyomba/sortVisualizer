@@ -15,7 +15,6 @@ div.container {
 
 div.element {
     @extend %positioning;
-    // width: calc(100% / 10);
     background-color: lightgray;
     color: white;
     font-weight: bold;

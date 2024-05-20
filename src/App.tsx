@@ -6,6 +6,12 @@ import './App.scss'
 import Sidebar from './components/sidebar/sidebar';
 import AnimationWindow from './components/animationWindow/animationWindow';
 
+import bubbleSort from './algorithms/bubbleSort';
+import mergeSort from './algorithms/mergeSort';
+import insertionSort from './algorithms/insertionSort';
+import quickSort from './algorithms/quickSort';
+import selectionSort from './algorithms/selectionSort';
+
 export enum Speed {
   slow = 'SLOW',
   medium = 'MEDIUM',
@@ -60,9 +66,9 @@ function App() {
       new_array.push(random_number);
     }
     setArray(new_array);
-   }
+  }
 
-  function randomiseArray() { 
+  function randomiseArray() {
     let new_array: number[] = [];
     let change: boolean = true;
     let tmp = Array.from(array);
@@ -77,19 +83,48 @@ function App() {
     setArray(new_array);
   }
 
-  function sortArray() { }
+  function sortArray() {
+    switch (algorithm) {
+      case Algorithm.bubblesort:
+        var tmp_array: number[] = Array.from(array);
+        bubbleSort(tmp_array);
+        setArray(tmp_array);
+        break;
+      case Algorithm.insertionsort:
+        var tmp_array: number[] = Array.from(array);
+        insertionSort(tmp_array);
+        setArray(tmp_array);
+        break;
+      case Algorithm.mergesort:
+        var tmp_array: number[] = Array.from(array);
+        mergeSort(tmp_array, 0, tmp_array.length - 1);
+        setArray(tmp_array);
+        break;
+      case Algorithm.quicksort:
+        var tmp_array: number[] = Array.from(array);
+        quickSort(tmp_array, 0, tmp_array.length - 1)
+        setArray(tmp_array);
+        break;
+      case Algorithm.selectionsort:
+        var tmp_array: number[] = Array.from(array);
+        selectionSort(tmp_array);
+        setArray(tmp_array);
+        break;
+    }
+  }
 
-  function updateCount(int: number): void { 
+  function updateCount(int: number): void {
     setCount(int);
     generateArray();
   }
-  
+
 
   return (
-    <SettingsContext.Provider value={{ 
-      speed: speed, count: count, algorithm: algorithm, array: array, setSpeed: setSpeed, 
-      setAlgorithm: setAlgorithm, generateArray: generateArray, randomiseArray: randomiseArray, 
-      sortArray: sortArray, updateCount: updateCount }}>
+    <SettingsContext.Provider value={{
+      speed: speed, count: count, algorithm: algorithm, array: array, setSpeed: setSpeed,
+      setAlgorithm: setAlgorithm, generateArray: generateArray, randomiseArray: randomiseArray,
+      sortArray: sortArray, updateCount: updateCount
+    }}>
       <Sidebar />
       <AnimationWindow />
     </SettingsContext.Provider >
