@@ -1,0 +1,5 @@
+An interface with structure { id, value, style / active }
+a function that creates the intermediate arrays with values of that structure
+the animation function!
+    - create the arrays structure with the suggested structure
+    - then track which element has moved where using the id value

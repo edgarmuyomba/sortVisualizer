@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { createContext } from 'react';
 
@@ -41,9 +41,9 @@ interface Settings {
 
 export const SettingsContext = createContext<Settings>({
   speed: Speed.slow,
-  count: 10,
+  count: 20,
   algorithm: Algorithm.bubblesort,
-  array: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+  array: [], // TODO: should take on the suggested array structure
   setSpeed: () => { },
   updateCount: () => { },
   setAlgorithm: () => { },
@@ -54,10 +54,10 @@ export const SettingsContext = createContext<Settings>({
 
 function App() {
 
-  const [speed, setSpeed] = useState(Speed.slow);
-  const [count, setCount] = useState(10);
-  const [algorithm, setAlgorithm] = useState(Algorithm.bubblesort);
-  const [array, setArray] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  const [speed, setSpeed] = useState<Speed>(Speed.slow);
+  const [count, setCount] = useState<number>(20);
+  const [algorithm, setAlgorithm] = useState<Algorithm>(Algorithm.bubblesort);
+  const [array, setArray] = useState<number[]>([]);
 
   function generateArray(): void {
     let new_array: number[] = [];
@@ -67,6 +67,11 @@ function App() {
     }
     setArray(new_array);
   }
+
+  // first time call
+  useEffect(() => {
+    generateArray();
+  }, [])
 
   function randomiseArray() {
     let new_array: number[] = [];
