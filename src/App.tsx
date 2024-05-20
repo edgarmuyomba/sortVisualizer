@@ -73,12 +73,9 @@ function App() {
     let change: boolean = true;
     let tmp = Array.from(array);
     while (tmp.length > 0) {
-      var elem: number | undefined;
-      if (change) {
-        elem = tmp.pop();
-      } else elem = tmp.shift();
-      if (elem != null) new_array.push(elem);
-      change = !change;
+      var index: number = Math.floor(Math.random() * tmp.length);
+      new_array.push(tmp[index]);
+      tmp.splice(index, 1);
     }
     setArray(new_array);
   }
