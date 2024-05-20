@@ -1,4 +1,6 @@
-export default function bubbleSort(array: number[]): void {
+export default function bubbleSort(array: number[]): number[][] {
+    let arrays: number[][] = [];
+
     let n: number = array.length;
 
     for (var i = 0; i < n; n++) {
@@ -10,10 +12,14 @@ export default function bubbleSort(array: number[]): void {
                 array[j+1] = array[j];
                 array[j] = temp;
                 swapped = true;
+                // tracking element movements
+                var tmp_array: number[] = Array.from(array);
+                arrays.push(tmp_array);
             }
         }
         if (!swapped) {
             break;
         }
     }
+    return arrays;
 }
