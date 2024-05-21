@@ -1,11 +1,13 @@
-export default function insertionSort(array: number[]): number[][] {
-    let arrays: number[][] = [];
+import { Element } from "../App";
+
+export default function insertionSort(array: Element[]): Element[][] {
+    let arrays: Element[][] = [];
 
     for (var i = 0; i < array.length; i++) {
-        let key: number = array[i];
+        let key: Element = array[i];
         let j: number = i - 1;
 
-        while (j >= 0 && key < array[j]) {
+        while (j >= 0 && key.value < array[j].value) {
             array[j + 1] = array[j];
             j--;
             // tracking element movements

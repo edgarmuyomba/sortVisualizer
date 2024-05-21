@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 
 import styles from "./styles.module.scss";
-import { SettingsContext } from "../../App";
+import { Element, SettingsContext } from "../../App";
+import { structuredArrayToArray } from "../../utils/utils";
 
 export default function AnimationWindow() {
 
@@ -9,7 +10,7 @@ export default function AnimationWindow() {
 
     const getHeight = (int: number): string => {
         // obtain the largest value
-        let tmp = Array.from(array);
+        let tmp = structuredArrayToArray(Array.from(array));
         tmp.sort((a, b) => b - a);
         let max = tmp[0];
         // calculate height based on height of largest value
@@ -18,15 +19,14 @@ export default function AnimationWindow() {
 
     const getWidth = (): string => `calc(55% / ${count})`;
 
-
     return (
         <div className={styles.container}>
             {
-                array.map((int: number, index: number) => {
+                array.map((element: Element, index: number) => {
                     return (
-                        <div key={index} className={styles.element} style={{ height: getHeight(int), width: getWidth() }}>
-                            <p className={styles.value} style={{ display: count > 17 ? 'none' : 'block'}}>
-                                {int}
+                        <div key={index} className={styles.element} style={{ height: getHeight(element.value), width: getWidth(), backgroundColor: element.active ? 'lightgreen' : 'light-gray' }}>
+                            <p className={styles.value} style={{ display: count > 17 ? 'none' : 'block' }}>
+                                {element.value}
                             </p>
                         </div>
                     )

@@ -11,6 +11,7 @@ import mergeSort from './algorithms/mergeSort';
 import insertionSort from './algorithms/insertionSort';
 import quickSort from './algorithms/quickSort';
 import selectionSort from './algorithms/selectionSort';
+import { arrayToStructuredArray, structuredArrayToArray } from './utils/utils';
 
 export enum Speed {
   slow = 'SLOW',
@@ -26,11 +27,17 @@ export enum Algorithm {
   selectionsort = 'SELECTIONSORT'
 };
 
+export interface Element {
+  id: number;
+  value: number;
+  active: boolean;
+}
+
 interface Settings {
   speed: Speed;
   count: number;
   algorithm: Algorithm;
-  array: number[];
+  array: Element[];
   setSpeed: (speed: Speed) => void;
   updateCount: (int: number) => void;
   setAlgorithm: (algorithm: Algorithm) => void;
@@ -46,7 +53,7 @@ export const SettingsContext = createContext<Settings>({
   array: [], // TODO: should take on the suggested array structure
   setSpeed: () => { },
   updateCount: () => { },
-  setAlgorithm: () => { },
+  setAlgorithm: () => { }, 
   generateArray: () => { },
   randomiseArray: () => { },
   sortArray: () => { },
@@ -57,7 +64,7 @@ function App() {
   const [speed, setSpeed] = useState<Speed>(Speed.slow);
   const [count, setCount] = useState<number>(20);
   const [algorithm, setAlgorithm] = useState<Algorithm>(Algorithm.bubblesort);
-  const [array, setArray] = useState<number[]>([]);
+  const [array, setArray] = useState<Element[]>([]);
 
   function generateArray(): void {
     let new_array: number[] = [];
@@ -65,7 +72,7 @@ function App() {
       let random_number = Math.floor(Math.random() * (count + 1)) + 1;
       new_array.push(random_number);
     }
-    setArray(new_array);
+    setArray(arrayToStructuredArray(new_array));
   }
 
   // first time call
@@ -76,39 +83,40 @@ function App() {
   function randomiseArray() {
     let new_array: number[] = [];
     let change: boolean = true;
-    let tmp = Array.from(array);
+    let tmp = structuredArrayToArray(Array.from(array));
     while (tmp.length > 0) {
       var index: number = Math.floor(Math.random() * tmp.length);
       new_array.push(tmp[index]);
       tmp.splice(index, 1);
     }
-    setArray(new_array);
+    setArray(arrayToStructuredArray(new_array));
   }
 
   function sortArray() {
+    let tmp_array: Element[] | number[];
     switch (algorithm) {
       case Algorithm.bubblesort:
-        var tmp_array: number[] = Array.from(array);
+        tmp_array = Array.from(array);
         bubbleSort(tmp_array);
         setArray(tmp_array);
         break;
       case Algorithm.insertionsort:
-        var tmp_array: number[] = Array.from(array);
+        tmp_array = Array.from(array);
         insertionSort(tmp_array);
         setArray(tmp_array);
         break;
       case Algorithm.mergesort:
-        var tmp_array: number[] = Array.from(array);
+        tmp_array = structuredArrayToArray(Array.from(array));
         mergeSort(tmp_array, 0, tmp_array.length - 1);
-        setArray(tmp_array);
+        setArray(arrayToStructuredArray(tmp_array));
         break;
       case Algorithm.quicksort:
-        var tmp_array: number[] = Array.from(array);
+        tmp_array = structuredArrayToArray(Array.from(array));
         quickSort(tmp_array, 0, tmp_array.length - 1)
-        setArray(tmp_array);
+        setArray(arrayToStructuredArray(tmp_array));
         break;
       case Algorithm.selectionsort:
-        var tmp_array: number[] = Array.from(array);
+        tmp_array = Array.from(array);
         selectionSort(tmp_array);
         setArray(tmp_array);
         break;
