@@ -7,3 +7,7 @@ export function arrayToStructuredArray(array: number[]): Element[] {
 export function structuredArrayToArray(array: Element[]): number[] {
     return array.map((element) => element.value);
 }
+
+export function elementAnimations(arrays: Element[][]): void {
+    
+}

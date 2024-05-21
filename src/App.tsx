@@ -94,15 +94,17 @@ function App() {
 
   function sortArray() {
     let tmp_array: Element[] | number[];
+    let arrays: Element[][];
+
     switch (algorithm) {
       case Algorithm.bubblesort:
         tmp_array = Array.from(array);
-        bubbleSort(tmp_array);
+        arrays = bubbleSort(tmp_array);
         setArray(tmp_array);
         break;
       case Algorithm.insertionsort:
         tmp_array = Array.from(array);
-        insertionSort(tmp_array);
+        arrays = insertionSort(tmp_array);
         setArray(tmp_array);
         break;
       case Algorithm.mergesort:
@@ -117,7 +119,7 @@ function App() {
         break;
       case Algorithm.selectionsort:
         tmp_array = Array.from(array);
-        selectionSort(tmp_array);
+        arrays = selectionSort(tmp_array);
         setArray(tmp_array);
         break;
     }
