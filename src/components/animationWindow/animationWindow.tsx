@@ -14,7 +14,7 @@ export default function AnimationWindow() {
         tmp.sort((a, b) => b - a);
         let max = tmp[0];
         // calculate height based on height of largest value
-        return `calc((${int} * 80%) / ${max})`;
+        return `calc((${int} * 90%) / ${max})`;
     }
 
     const getWidth = (): string => `calc(55% / ${count})`;

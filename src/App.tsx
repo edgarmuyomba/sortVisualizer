@@ -11,7 +11,7 @@ import mergeSort from './algorithms/mergeSort';
 import insertionSort from './algorithms/insertionSort';
 import quickSort from './algorithms/quickSort';
 import selectionSort from './algorithms/selectionSort';
-import { arrayToStructuredArray, structuredArrayToArray } from './utils/utils';
+import { arrayToStructuredArray, elementAnimations, structuredArrayToArray } from './utils/utils';
 
 export enum Speed {
   slow = 'SLOW',
@@ -95,17 +95,20 @@ function App() {
   function sortArray() {
     let tmp_array: Element[] | number[];
     let arrays: Element[][];
+    let active_elements: Element[][];
 
     switch (algorithm) {
       case Algorithm.bubblesort:
         tmp_array = Array.from(array);
         arrays = bubbleSort(tmp_array);
-        setArray(tmp_array);
+        elementAnimations(arrays, setArray, speed);
+        // setArray(tmp_array);
         break;
       case Algorithm.insertionsort:
         tmp_array = Array.from(array);
         arrays = insertionSort(tmp_array);
-        setArray(tmp_array);
+        elementAnimations(arrays, setArray, speed);
+        // setArray(tmp_array);
         break;
       case Algorithm.mergesort:
         tmp_array = structuredArrayToArray(Array.from(array));
@@ -120,7 +123,8 @@ function App() {
       case Algorithm.selectionsort:
         tmp_array = Array.from(array);
         arrays = selectionSort(tmp_array);
-        setArray(tmp_array);
+        elementAnimations(arrays, setArray, speed);
+        // setArray(tmp_array);
         break;
     }
   }
