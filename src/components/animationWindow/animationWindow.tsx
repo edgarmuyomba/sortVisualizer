@@ -24,7 +24,7 @@ export default function AnimationWindow() {
             {
                 array.map((element: Element, index: number) => {
                     return (
-                        <div key={index} className={styles.element} style={{ height: getHeight(element.value), width: getWidth(), backgroundColor: element.active ? 'lightgreen' : 'light-gray' }}>
+                        <div key={index} className={styles.element} style={{ height: getHeight(element.value), width: getWidth(), backgroundColor: element.active ? 'lightgreen' : 'lightgray' }}>
                             <p className={styles.value} style={{ display: count > 17 ? 'none' : 'block' }}>
                                 {element.value}
                             </p>

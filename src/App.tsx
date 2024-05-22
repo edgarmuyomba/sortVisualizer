@@ -47,7 +47,7 @@ interface Settings {
 }
 
 export const SettingsContext = createContext<Settings>({
-  speed: Speed.slow,
+  speed: Speed.medium,
   count: 20,
   algorithm: Algorithm.bubblesort,
   array: [], // TODO: should take on the suggested array structure
@@ -61,7 +61,7 @@ export const SettingsContext = createContext<Settings>({
 
 function App() {
 
-  const [speed, setSpeed] = useState<Speed>(Speed.slow);
+  const [speed, setSpeed] = useState<Speed>(Speed.medium);
   const [count, setCount] = useState<number>(20);
   const [algorithm, setAlgorithm] = useState<Algorithm>(Algorithm.bubblesort);
   const [array, setArray] = useState<Element[]>([]);
@@ -80,6 +80,10 @@ function App() {
     generateArray();
   }, [])
 
+  useEffect(() => {
+
+  }, [array])
+
   function randomiseArray() {
     let new_array: number[] = [];
     let change: boolean = true;
@@ -92,7 +96,7 @@ function App() {
     setArray(arrayToStructuredArray(new_array));
   }
 
-  function sortArray() {
+  async function sortArray() {
     let tmp_array: Element[] | number[];
     let arrays: Element[][];
     let active_elements: Element[][];
@@ -101,13 +105,13 @@ function App() {
       case Algorithm.bubblesort:
         tmp_array = Array.from(array);
         arrays = bubbleSort(tmp_array);
-        elementAnimations(arrays, setArray, speed);
+        await elementAnimations(arrays, setArray, speed);
         // setArray(tmp_array);
         break;
       case Algorithm.insertionsort:
         tmp_array = Array.from(array);
         arrays = insertionSort(tmp_array);
-        elementAnimations(arrays, setArray, speed);
+        await elementAnimations(arrays, setArray, speed);
         // setArray(tmp_array);
         break;
       case Algorithm.mergesort:
@@ -123,7 +127,7 @@ function App() {
       case Algorithm.selectionsort:
         tmp_array = Array.from(array);
         arrays = selectionSort(tmp_array);
-        elementAnimations(arrays, setArray, speed);
+        await elementAnimations(arrays, setArray, speed);
         // setArray(tmp_array);
         break;
     }
