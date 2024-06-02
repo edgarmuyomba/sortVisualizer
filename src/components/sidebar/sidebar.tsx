@@ -84,8 +84,8 @@ export default function Sidebar() {
                 <select name="algorithms" className={styles.algorithms} onChange={(event) => changeAlgorithm(event)}>
                     <option value={Algorithm.bubblesort}>Bubble Sort</option>
                     <option value={Algorithm.insertionsort}>Insertion Sort</option>
-                    <option value={Algorithm.mergesort}>Merge Sort</option>
-                    <option value={Algorithm.quicksort}>Quick Sort</option>
+                    {/* <option value={Algorithm.mergesort}>Merge Sort</option>
+                    <option value={Algorithm.quicksort}>Quick Sort</option> */}
                     <option value={Algorithm.selectionsort}>Selection Sort</option>
                 </select>
             </div>

@@ -16,8 +16,7 @@ export default function bubbleSort(array: Element[]): Element[][] {
                     array[j] = temp;
                     swapped = true;
                     // tracking element movements
-                    var tmp_array: Element[] = Array.from(array);
-                    arrays.push(tmp_array);
+                    arrays.push([...array]);
                 }
             }
         }

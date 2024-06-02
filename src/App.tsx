@@ -53,7 +53,7 @@ export const SettingsContext = createContext<Settings>({
   array: [], // TODO: should take on the suggested array structure
   setSpeed: () => { },
   updateCount: () => { },
-  setAlgorithm: () => { }, 
+  setAlgorithm: () => { },
   generateArray: () => { },
   randomiseArray: () => { },
   sortArray: () => { },
@@ -106,18 +106,16 @@ function App() {
         tmp_array = Array.from(array);
         arrays = bubbleSort(tmp_array);
         await elementAnimations(arrays, setArray, speed);
-        // setArray(tmp_array);
         break;
       case Algorithm.insertionsort:
         tmp_array = Array.from(array);
         arrays = insertionSort(tmp_array);
         await elementAnimations(arrays, setArray, speed);
-        // setArray(tmp_array);
         break;
       case Algorithm.mergesort:
-        tmp_array = structuredArrayToArray(Array.from(array));
-        tmp_array = mergeSort(tmp_array);
-        setArray(arrayToStructuredArray(tmp_array));
+        tmp_array = Array.from(array);
+        arrays = mergeSort(tmp_array);
+        await elementAnimations(arrays, setArray, speed);
         break;
       case Algorithm.quicksort:
         tmp_array = structuredArrayToArray(Array.from(array));
