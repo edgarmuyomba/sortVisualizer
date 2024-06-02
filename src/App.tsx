@@ -44,6 +44,7 @@ interface Settings {
   generateArray: () => void;
   randomiseArray: () => void;
   sortArray: () => void;
+  disabled: boolean;
 }
 
 export const SettingsContext = createContext<Settings>({
@@ -57,6 +58,7 @@ export const SettingsContext = createContext<Settings>({
   generateArray: () => { },
   randomiseArray: () => { },
   sortArray: () => { },
+  disabled: false,
 })
 
 function App() {
@@ -65,14 +67,17 @@ function App() {
   const [count, setCount] = useState<number>(20);
   const [algorithm, setAlgorithm] = useState<Algorithm>(Algorithm.bubblesort);
   const [array, setArray] = useState<Element[]>([]);
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   function generateArray(): void {
-    let new_array: number[] = [];
-    for (var i = 1; i < count; i++) {
-      let random_number = Math.floor(Math.random() * (count + 1)) + 1;
-      new_array.push(random_number);
+    if (!disabled) {
+      let new_array: number[] = [];
+      for (var i = 1; i < count; i++) {
+        let random_number = Math.floor(Math.random() * (count + 1)) + 1;
+        new_array.push(random_number);
+      }
+      setArray(arrayToStructuredArray(new_array));
     }
-    setArray(arrayToStructuredArray(new_array));
   }
 
   // first time call
@@ -80,54 +85,61 @@ function App() {
     generateArray();
   }, [])
 
-  useEffect(() => {
-
-  }, [array])
-
   function randomiseArray() {
-    let new_array: number[] = [];
-    let change: boolean = true;
-    let tmp = structuredArrayToArray(Array.from(array));
-    while (tmp.length > 0) {
-      var index: number = Math.floor(Math.random() * tmp.length);
-      new_array.push(tmp[index]);
-      tmp.splice(index, 1);
+    if (!disabled) {
+      let new_array: number[] = [];
+      let change: boolean = true;
+      let tmp = structuredArrayToArray(Array.from(array));
+      while (tmp.length > 0) {
+        var index: number = Math.floor(Math.random() * tmp.length);
+        new_array.push(tmp[index]);
+        tmp.splice(index, 1);
+      }
+      setArray(arrayToStructuredArray(new_array));
     }
-    setArray(arrayToStructuredArray(new_array));
   }
 
   async function sortArray() {
-    let tmp_array: Element[] | number[];
-    let arrays: Element[][];
-    let active_elements: Element[][];
+    if (!disabled) {
+      let tmp_array: Element[] | number[];
+      let arrays: Element[][];
+      let active_elements: Element[][];
 
-    switch (algorithm) {
-      case Algorithm.bubblesort:
-        tmp_array = Array.from(array);
-        arrays = bubbleSort(tmp_array);
-        await elementAnimations(arrays, setArray, speed);
-        break;
-      case Algorithm.insertionsort:
-        tmp_array = Array.from(array);
-        arrays = insertionSort(tmp_array);
-        await elementAnimations(arrays, setArray, speed);
-        break;
-      case Algorithm.mergesort:
-        tmp_array = Array.from(array);
-        arrays = mergeSort(tmp_array);
-        await elementAnimations(arrays, setArray, speed);
-        break;
-      case Algorithm.quicksort:
-        tmp_array = structuredArrayToArray(Array.from(array));
-        quickSort(tmp_array, 0, tmp_array.length - 1)
-        setArray(arrayToStructuredArray(tmp_array));
-        break;
-      case Algorithm.selectionsort:
-        tmp_array = Array.from(array);
-        arrays = selectionSort(tmp_array);
-        await elementAnimations(arrays, setArray, speed);
-        // setArray(tmp_array);
-        break;
+      switch (algorithm) {
+        case Algorithm.bubblesort:
+          tmp_array = Array.from(array);
+          arrays = bubbleSort(tmp_array);
+          setDisabled(true);
+          await elementAnimations(arrays, setArray, speed);
+          setDisabled(false);
+          break;
+        case Algorithm.insertionsort:
+          tmp_array = Array.from(array);
+          arrays = insertionSort(tmp_array);
+          setDisabled(true);
+          await elementAnimations(arrays, setArray, speed);
+          setDisabled(false);
+          break;
+        case Algorithm.mergesort:
+          tmp_array = Array.from(array);
+          arrays = mergeSort(tmp_array);
+          setDisabled(true);
+          await elementAnimations(arrays, setArray, speed);
+          setDisabled(false);
+          break;
+        case Algorithm.quicksort:
+          tmp_array = structuredArrayToArray(Array.from(array));
+          quickSort(tmp_array, 0, tmp_array.length - 1)
+          setArray(arrayToStructuredArray(tmp_array));
+          break;
+        case Algorithm.selectionsort:
+          tmp_array = Array.from(array);
+          arrays = selectionSort(tmp_array);
+          setDisabled(true);
+          await elementAnimations(arrays, setArray, speed);
+          setDisabled(false);
+          break;
+      }
     }
   }
 
@@ -141,7 +153,7 @@ function App() {
     <SettingsContext.Provider value={{
       speed: speed, count: count, algorithm: algorithm, array: array, setSpeed: setSpeed,
       setAlgorithm: setAlgorithm, generateArray: generateArray, randomiseArray: randomiseArray,
-      sortArray: sortArray, updateCount: updateCount
+      sortArray: sortArray, updateCount: updateCount, disabled: disabled
     }}>
       <Sidebar />
       <AnimationWindow />

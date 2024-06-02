@@ -9,7 +9,7 @@ import { Algorithm, SettingsContext, Speed } from "../../App";
 
 export default function Sidebar() {
 
-    const { generateArray, randomiseArray, sortArray, setAlgorithm, count, updateCount, speed, setSpeed } = useContext(SettingsContext);
+    const { generateArray, randomiseArray, sortArray, setAlgorithm, count, updateCount, speed, setSpeed, disabled } = useContext(SettingsContext);
 
     const options: { value: Speed }[] = [{
         value: Speed.slow
@@ -43,6 +43,8 @@ export default function Sidebar() {
         }
     }
 
+    let disabledButton = { backgroundColor: 'transparent', color: 'gray', border: '1px solid lightgray', borderRadius: '5px' };
+
     return (
         <div className={styles.container}>
             <div className={styles.title}>
@@ -60,7 +62,7 @@ export default function Sidebar() {
                     {
                         options.map((option, index) => {
                             return (
-                                <button onClick={() => setSpeed(option.value)} key={index} className={`${styles.option} ${option.value === speed ? styles.selected : null}`}>{option.value}</button>
+                                <button style={disabled ? disabledButton : {}} onClick={() => setSpeed(option.value)} key={index} className={`${styles.option} ${option.value === speed ? styles.selected : null}`}>{option.value}</button>
                             )
                         })
                     }
@@ -73,7 +75,7 @@ export default function Sidebar() {
                         Element Count
                     </p>
                 </div>
-                <input type="range" name="count" id="count" min={5} max={100} value={count} onChange={(event) => updateCount(parseInt(event.target.value))} />
+                <input disabled={disabled} type="range" name="count" id="count" min={5} max={100} value={count} onChange={(event) => updateCount(parseInt(event.target.value))} />
             </div>
             <hr />
             <div className={styles.setting}>
@@ -81,7 +83,7 @@ export default function Sidebar() {
                     <Icon path={mdiGraphOutline} size={0.8} />
                     <p className={styles.name}>Algorithm</p>
                 </div>
-                <select name="algorithms" className={styles.algorithms} onChange={(event) => changeAlgorithm(event)}>
+                <select disabled={disabled} name="algorithms" className={styles.algorithms} onChange={(event) => changeAlgorithm(event)}>
                     <option value={Algorithm.bubblesort}>Bubble Sort</option>
                     <option value={Algorithm.insertionsort}>Insertion Sort</option>
                     {/* <option value={Algorithm.mergesort}>Merge Sort</option>
@@ -92,13 +94,13 @@ export default function Sidebar() {
             <hr />
             <div className={styles.setting}>
                 <div className={styles.buttons}>
-                    <button className={styles.refresh} title="Refresh" onClick={() => generateArray()}>
+                    <button style={disabled ? disabledButton : {}} className={styles.refresh} title="Refresh" onClick={() => generateArray()}>
                         <Icon path={mdiRefresh} size={0.7} />
                     </button>
-                    <button className={styles.random} title="Randomise" onClick={() => randomiseArray()}>
+                    <button style={disabled ? disabledButton : {}} className={styles.random} title="Randomise" onClick={() => randomiseArray()}>
                         <Icon path={mdiShuffle} size={0.7} />
                     </button>
-                    <button className={styles.sort} onClick={() => sortArray()}>
+                    <button style={disabled ? disabledButton : {}} className={styles.sort} onClick={() => sortArray()}>
                         Sort
                     </button>
                 </div>
