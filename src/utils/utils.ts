@@ -10,7 +10,7 @@ export function structuredArrayToArray(array: Element[]): number[] {
 
 export async function elementAnimations(arrays: Element[][], setArray: (arg0: Element[]) => void, speed: Speed): Promise<void> {
     let new_arrays: Element[][] = findActiveElements(arrays);
-    for (let array of arrays) {
+    for (let array of new_arrays) {
         setArray(array);
         await sleep(speed);
     }
@@ -49,7 +49,7 @@ function findMovedElement(array1: Element[], array2: Element[]): Element | undef
 }
 
 const sleep = (speed: Speed) => {
-    let speedFactor: number = 50;
+    let speedFactor: number = 75;
     switch(speed) {
         case Speed.fast:
             speedFactor = 50;
@@ -58,7 +58,7 @@ const sleep = (speed: Speed) => {
             speedFactor = 75;
             break;
         case Speed.slow:
-            speedFactor = 100;
+            speedFactor = 500;
             break;
     }
 
