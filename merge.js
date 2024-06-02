@@ -1,22 +1,22 @@
-export default function mergeSort(array: number[]): number[] {
+function merge_sort(array) {
     if (array.length <= 1) return array;
 
     // divide into left and right
-    let mid: number = Math.floor(array.length / 2);
-    let left_sub: number[] = array.slice(0, mid);
-    let right_sub: number[] = array.slice(mid, array.length);
+    let mid = Math.floor(array.length / 2);
+    let left_sub = array.slice(0, mid);
+    let right_sub = array.slice(mid, array.length);
 
     // recursively sort both halves
-    left_sub = mergeSort(left_sub);
-    right_sub = mergeSort(right_sub);
+    left_sub = merge_sort(left_sub);
+    right_sub = merge_sort(right_sub);
 
     return merge(left_sub, right_sub);
 }
 
-function merge(left_sub: number[], right_sub: number[]): number[] {
-    let final_array: number[] = [];
+function merge(left_sub, right_sub) {
+    let final_array = [];
 
-    let left_index: number = 0, right_index: number = 0;
+    let left_index = 0, right_index = 0;
 
     while(left_index < left_sub.length && right_index < right_sub.length) {
         if (left_sub[left_index] < right_sub[right_index]) {
@@ -33,3 +33,5 @@ function merge(left_sub: number[], right_sub: number[]): number[] {
 
     return final_array;
 }
+
+console.log(merge_sort([9,8,7,6,5,4,3,2,1]));

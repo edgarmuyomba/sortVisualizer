@@ -58,7 +58,7 @@ const sleep = (speed: Speed) => {
             speedFactor = 75;
             break;
         case Speed.slow:
-            speedFactor = 500;
+            speedFactor = 100;
             break;
     }
 

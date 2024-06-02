@@ -116,7 +116,7 @@ function App() {
         break;
       case Algorithm.mergesort:
         tmp_array = structuredArrayToArray(Array.from(array));
-        mergeSort(tmp_array, 0, tmp_array.length - 1);
+        tmp_array = mergeSort(tmp_array);
         setArray(arrayToStructuredArray(tmp_array));
         break;
       case Algorithm.quicksort:
