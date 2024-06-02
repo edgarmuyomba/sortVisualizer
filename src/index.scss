@@ -17,3 +17,15 @@ body {
   display: flex;
   justify-content: center;
 }
+
+@media (max-width: 1024px) {
+  body {
+    display: block;
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    min-height: 100vh;
+  }
+}

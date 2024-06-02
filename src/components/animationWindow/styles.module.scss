@@ -59,3 +59,26 @@ div.bottom_container {
         color: black;
     }
 }
+
+@media (max-width: 767px) {
+    div.container {
+        width: 100%;
+        height: 60%;
+    }
+
+    div.top_container {
+        height: 90%;
+    }
+
+    div.bottom_container {
+        height: 10%;
+
+        svg {
+            scale: 1.5
+        }
+
+        a {
+            font-size: 1.3rem;
+        }
+    }
+}
